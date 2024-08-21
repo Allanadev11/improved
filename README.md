@@ -1,0 +1,1 @@
+This project is a multi-page website created using HTML, CSS, and JavaScript. The website is designed to demonstrate the creation and linking of different HTML pages. With features such as responsive design, navigation, custom stylesheets with CSS, JavaScript is used to add interactive elements, such as form validation, image sliders, or dynamic content loading. 
