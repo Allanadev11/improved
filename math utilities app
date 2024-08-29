@@ -1,0 +1,68 @@
+import math
+
+def show_menu():
+    print("\nMathematical Operations Menu")
+    print("1. Square Root")
+    print("2. Logarithm (base 10)")
+    print("3. Exponential")
+    print("4. Power")
+    print("5. Quit")
+
+def calculate_square_root():
+    try:
+        num = float(input("Enter a number: "))
+        if num < 0:
+            raise ValueError("Cannot compute square root of a negative number.")
+        result = math.sqrt(num)
+        print(f"The square root of {num} is {result:.2f}")
+    except ValueError as e:
+        print(f"Error: {e}. Please try again.")
+
+def calculate_logarithm():
+    try:
+        num = float(input("Enter a positive number: "))
+        if num <= 0:
+            raise ValueError("Logarithm is only defined for positive numbers.")
+        result = math.log10(num)
+        print(f"The logarithm base 10 of {num} is {result:.2f}")
+    except ValueError as e:
+        print(f"Error: {e}. Please try again.")
+
+def calculate_exponential():
+    try:
+        num = float(input("Enter a number: "))
+        result = math.exp(num)
+        print(f"The exponential of {num} is {result:.2f}")
+    except ValueError as e:
+        print(f"Error: {e}. Please try again.")
+
+def calculate_power():
+    try:
+        base = float(input("Enter the base: "))
+        exponent = float(input("Enter the exponent: "))
+        result = math.pow(base, exponent)
+        print(f"{base} raised to the power of {exponent} is {result:.2f}")
+    except ValueError as e:
+        print(f"Error: {e}. Please try again.")
+
+def main():
+    while True:
+        show_menu()
+        choice = input("Select an option (1-5): ")
+        
+        if choice == '1':
+            calculate_square_root()
+        elif choice == '2':
+            calculate_logarithm()
+        elif choice == '3':
+            calculate_exponential()
+        elif choice == '4':
+            calculate_power()
+        elif choice == '5':
+            print("Exiting the program. Goodbye!")
+            break
+        else:
+            print("Invalid choice. Please select a number between 1 and 5.")
+
+
+    main()
