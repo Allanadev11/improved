@@ -1,0 +1,89 @@
+// Main application
+import com.pi4j.io.gpio.GpioController;
+import com.pi4j.io.gpio.GpioFactory;
+import com.pi4j.io.gpio.GpioPinDigitalOutput;
+import com.pi4j.io.gpio.PinState;
+import com.pi4j.io.gpio.RaspiPin;
+
+public class SmartHomeApp {
+
+    private GpioController gpio;
+    private GpioPinDigitalOutput ledPin;
+
+    public SmartHomeApp() {
+        gpio = GpioFactory.getInstance();
+        // Initialize a pin to control an LED
+        ledPin = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_01, "LED", PinState.LOW);
+    }
+
+    public void turnOnLight() {
+        ledPin.high();
+        System.out.println("Light turned ON.");
+    }
+
+    public void turnOffLight() {
+        ledPin.low();
+        System.out.println("Light turned OFF.");
+    }
+
+    public void shutdown() {
+        gpio.shutdown();
+    }
+
+    public static void main(String[] args) {
+        SmartHomeApp app = new SmartHomeApp();
+
+        // Simulate user interaction
+        app.turnOnLight();
+        try {
+            Thread.sleep(5000); // Keep light on for 5 seconds
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        app.turnOffLight();
+
+        app.shutdown();
+    }
+}
+// user interface
+import java.util.Scanner;
+
+public class SmartHomeUI {
+
+    private SmartHomeApp app;
+
+    public SmartHomeUI() {
+        app = new SmartHomeApp();
+    }
+
+    public void start() {
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            System.out.println("1. Turn ON Light");
+            System.out.println("2. Turn OFF Light");
+            System.out.println("3. Exit");
+            System.out.print("Select an option: ");
+            int option = scanner.nextInt();
+
+            switch (option) {
+                case 1:
+                    app.turnOnLight();
+                    break;
+                case 2:
+                    app.turnOffLight();
+                    break;
+                case 3:
+                    app.shutdown();
+                    System.out.println("Exiting...");
+                    return;
+                default:
+                    System.out.println("Invalid option. Please try again.");
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        SmartHomeUI ui = new SmartHomeUI();
+        ui.start();
+    }
+}
